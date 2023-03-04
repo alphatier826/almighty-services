@@ -6,6 +6,7 @@ require("dotenv").config()
 
 const {connection} = require("./config/data");
 const { UserRouters } = require("./Router/User.Router");
+const { NewsController } = require("./controller/NewsController");
 
 
 const app=express();
@@ -16,11 +17,20 @@ app.use(cors({
     origin:"*"
 }))
 
-app.get("/",auth,(req,res)=>{
+var router = express.Router();
+
+app.get("/healthCheck", function (req, res) {
+	res.status(200);
+	res.type("application/json");
+	res.json("Service is up and running !!!");
+});
+
+app.get("/",(req,res)=>{
     res.send("web")
 })
 
-app.use("/user",UserRouters)
+app.use("/user",UserRouters);
+app.use("/news", NewsController)
 
 app.listen(process.env.PORT,async()=>{
     try{
