@@ -1,9 +1,9 @@
 const News = require('../modules/News.Schema');
 
 exports.NewsService = {
-    getAll: function() {
+    getAll: function(res) {
         News.find({}).then(news => {
-            console.log(news);
+            res.status(200).json(news)
             })
             .catch(error => next(error));
         }
