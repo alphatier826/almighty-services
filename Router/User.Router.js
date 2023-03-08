@@ -56,8 +56,8 @@ UserRouters.get("/",async(req,res)=>{
         res.send(data)
 
     }
-    catch(err){
-        console.log(err)
+    catch(error){
+        console.log(error)
         res.send("something wrong")
 
     }
