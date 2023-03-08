@@ -52,7 +52,7 @@ UserRouters.post('/login', (req, res, next) => {
 UserRouters.get("/",async(req,res)=>{
     
     try{
-        const data=await UserModel.find()
+        const data=await User.find()
         res.send(data)
 
     }
@@ -68,7 +68,7 @@ UserRouters.get("/",async(req,res)=>{
 UserRouters.post("/newpost",async(req,res)=>{
     const payload=req.body
     try{
-        const resobj=await UserModel.create(payload)
+        const resobj=await User.create(payload)
         res.send({id: resobj._id.toString()})
     }
 
