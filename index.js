@@ -44,7 +44,7 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/user",UserRouters);
-app.use("/news", NewsController)
+app.use("/news",auth, NewsController)
 
 app.listen(process.env.PORT,async()=>{
     try{
