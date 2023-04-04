@@ -2,6 +2,15 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('../modules/User.Schema');
 const UserRouters = express.Router();
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'devwebalmighty@gmail.com',
+    pass: 'nnoqwlaznlnbkflj'
+  }
+});
 
 UserRouters.post('/signup', (req, res, next) => {
   const { username, email, password, age } = req.body;
@@ -48,6 +57,24 @@ UserRouters.post('/login', (req, res, next) => {
     //   );
     })
     .catch(error => next(error));
+});
+UserRouters.post("/sendMail", async(req, res) => {
+  const { email, subject, name, message} = req.body;
+  const mailOptions = {
+    from: email,
+    to: 'support@almightyalgo.com',
+    subject: subject,
+    text: `Customer Name : ${name} _ ${email}
+           ${message}`
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      res.send(error)
+    } else {
+      res.send(info.accepted)
+    }
+  });
 });
 UserRouters.get("/",async(req,res)=>{
     
